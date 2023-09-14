@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 // Define the user schema and model using Mongoose
 const ordersSchema = new mongoose.Schema({
   user:{
-    type: String,ref:"Allusers"
+    type: String,ref:"Allusers",required:true
    },
    product:{
      type: String,
@@ -18,7 +18,6 @@ const ordersSchema = new mongoose.Schema({
   totalPay:Number,
   paymentMethod:String,
   paymentId: String,
-  ispaid: Boolean
 
   });
   

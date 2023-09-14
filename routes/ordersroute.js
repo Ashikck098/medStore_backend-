@@ -1,12 +1,15 @@
 import  Express  from "express";
-import { addOrders, getSingleOrder } from "../controllers/ordersController.js";
+import { addOrders, address, getAllOrders, getOrdersByUser, payment, removeOrder } from "../controllers/ordersController.js";
 
 const ordersRoute=Express()
 
 ordersRoute.post('/addorder',addOrders);
-ordersRoute.delete('/cancelorder',deleteProduct);
-ordersRoute.get('/getorders',getProduct);
-ordersRoute.get('/getsingleproduct/:id',getSingleOrder);
+// ordersRoute.delete('/cancelorder',deleteProduct);
+ordersRoute.post('/getsingleorders',getOrdersByUser);
+ordersRoute.get('/getsingleproduct/:id',getAllOrders);
+ordersRoute.post('/address/',address);
+ordersRoute.post('/payment/',payment);
+ordersRoute.delete('/removeorder/:id/',removeOrder);
 
 
 

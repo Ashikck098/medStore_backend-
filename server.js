@@ -4,6 +4,7 @@ import userRouter from "./routes/userroute.js"
 import authRouter from "./routes/auth.js"
 import productsRoute from "./routes/productsroute.js";
 import cartRoute from "./routes/cartroute.js";
+import ordersRoute from "./routes/ordersroute.js";
 
 const app=express()
 const port =4000;
@@ -14,7 +15,8 @@ app.use(
     userRouter,
     authRouter,
     productsRoute,
-    cartRoute
+    cartRoute,
+    ordersRoute
     )
 
 

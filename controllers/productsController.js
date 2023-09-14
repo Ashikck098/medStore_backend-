@@ -316,6 +316,27 @@ export async function getsingleProduct(req, res, next) {
 }
 
 
+export async function getAllProduct(req, res, next) {
+  try {
+    
+   
+
+   
+    const getallProducts = await Products.find();
+
+    if (!getallProducts) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    const total = getallProducts.length
+    // Respond with the found product
+    res.status(200).json({ allproducts: getallProducts, total: total });
+  } catch (error) {
+    // Handle unexpected errors and pass them to the error handling middleware (next)
+    next(error);
+  }
+}
+
+
 
 
  
