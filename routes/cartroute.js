@@ -4,8 +4,7 @@ import { authorizeRoles } from "../authorization/authorize.js";
 
 const cartRoute=Express()
 
-cartRoute.post('/addCart',addCart);
-cartRoute.post('/getSingleCart',authorizeRoles(["user","admin"]),getSingleCart);
-// authorizeRoles(["user","admin"])
+cartRoute.post('/addCart',authorizeRoles(["user","admin"]),addCart);
+cartRoute.get('/getSingleCart',authorizeRoles(["user","admin"]),getSingleCart);
 
 export default cartRoute 

@@ -3,20 +3,6 @@ import { v2 as cloudinary } from 'cloudinary';
 import mongoose from 'mongoose'
 
 
-
-// export async function addProduct(req, res,next) {
-//   try {
-//     const productData = req.body;        
-//     const createProcuts= await Products.create(productData)
-//     res.status(200).json(createProcuts  )
-//   } catch (error) {
-//     next(error)
-//   }
-//   }
-
-
-// const cloudinary = require('cloudinary').v2;
-
 cloudinary.config({
   cloud_name: 'dh5pflqzs',
   api_key: '549382545581927',
@@ -60,20 +46,6 @@ export async function addProduct(req, res, next) {
 }
 
 
-// export async function searchProduct(req, res, next) {
-//   try {
-//     const searchquery = req.body
-
-//     const search = await Products.find(productName.includes(searchquery))
-
-//     res.status(201).json(createdProduct);
-//   } catch (error) {
-//     // Handle unexpected errors and pass them to the error handling middleware (next)
-//     next(error);
-//   }
-// }
-
-
 export async function searchProduct(req, res, next) {
   try {
     const searchQuery = req.body.search; // Assuming `req.body.search` contains the search query
@@ -96,63 +68,6 @@ export async function searchProduct(req, res, next) {
     next(error);
   }
 }
-
-
-
-
-
-
-// export async function addProductImage(req, res, next) {
-//   try {
-//     const query = req.params.id;
-      
-//     const files = req.files;
-    
-//     if (!files || files.length === 0) {
-//       return res.status(400).json({ message: 'No photo were uploaded.' });
-//     }
-
-//     if(query){
-//       const Collection = await this.collection.findById(query.collectionId);
-//       if(!Collection) throw new HttpException(404, "collection not found")
-//       const images = [];
-  
-//       for (const file of files) {
-//         const public_id = `products/${file.filename}`;
-//         const result = await cloudinary.uploader.upload(file.path, { public_id });
-//         images.push({
-//           public_id: result.public_id,
-//           url: result.secure_url,
-//         });
-//       }
-//       Collection.productImage.push(...images);
-//       const Image = await Collection.save();
-//       return Image;
-//     }
-//   } catch (error) {
-//     // Handle unexpected errors and pass them to the error handling middleware (next)
-//     next(error);
-//   }
-// }
-
-  // export async function updateProduct(req, res) {
-  //   try {
-  //     const DataToUpdate= req.body
-  //     const productId = req.body
-
-  //     if (!updateCollectionById) throw error
-  //     const updateProductById= await collection.findByIdAndUpdate(productId, DataToUpdate, { new: true });
-    
-
-  //     return updateCollectionById;
-   
-  //     res.status(200).json(createProcuts  )
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  //   }
-
-
   
 export async function updateProduct(req, res, next) {
   try {
@@ -180,27 +95,6 @@ export async function updateProduct(req, res, next) {
 }
 
 
-
-// export async function deleteProduct(req, res, next) {
-//   try {
-    
-//  const productId = req.params.id; 
-//  if (!deleteCollectionById) throw error(409, "product not found");
-   
-//       const deleteProductById= await Products.findByIdAndDelete(productId);
-     
-    
-//       return deleteProductById;
-    
-
-
-//   } catch (error) {
-//     // Handle unexpected errors and pass them to the error handling middleware (next)
-//     next(error);
-//   }
-// }
-
-
 export async function deleteProduct(req, res, next) {
   try {
     const productId = req.params.id; // Assuming the product ID is in the URL parameter
@@ -224,72 +118,6 @@ export async function deleteProduct(req, res, next) {
     next(error);
   }
 }
-
-
-
-// export async function updateProduct(req, res, next) {
-//   try {
-//     const productId = req.params.id; // Assuming the product ID is in the URL parameter
-//     const dataToUpdate = req.body;
-
-//     // Check if productId is a valid ObjectId format (assuming you're using MongoDB ObjectId)
-//     if (!mongoose.Types.ObjectId.isValid(productId)) {
-//       return res.status(400).json({ message: 'Invalid product ID' });
-//     }
-
-//     // Find the product by ID and update it
-//     const updatedProduct = await Products.findByIdAndUpdate(productId, dataToUpdate, { new: true });
-
-//     if (!updatedProduct) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-
-//     // Respond with the updated product
-//     res.status(200).json(updatedProduct);
-//   } catch (error) {
-//     // Handle unexpected errors and pass them to the error handling middleware (next)
-//     next(error);
-//   }
-// }
-
-
-
-// export async function deleteProduct(req, res, next) {
-//   try {
-    
-//  const productId = req.params.id; 
-//  if (!deleteCollectionById) throw error(409, "product not found");
-   
-//       const deleteProductById= await Products.findByIdAndDelete(productId);
-     
-    
-//       return deleteProductById;
-    
-
-
-//   } catch (error) {
-//     // Handle unexpected errors and pass them to the error handling middleware (next)
-//     next(error);
-//   }
-// }
-
-
-// export async function getsingleProduct(req, res, next) {
-//   try {
-//     const productId = req.params.id; // Assuming the product ID is in the URL parameter
-
-//     if (!collectionId) throw error("there is no such product")
-
-//     const findCollection = await Products.findOne({ _id: collectionId });
-//     if (!findCollection) throw error(409, "Not a valid product");
-
-//     res.status(200).json( findCollection);
-//   } catch (error) {
-//     // Handle unexpected errors and pass them to the error handling middleware (next)
-//     next(error);
-//   }
-// }
-
 
 export async function getsingleProduct(req, res, next) {
   try {

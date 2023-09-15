@@ -5,7 +5,7 @@ import { authorizeRoles } from "../authorization/authorize.js";
 const ordersRoute=Express()
 
 ordersRoute.post('/addorder',authorizeRoles(["user","admin"]),addOrders);
-ordersRoute.post('/getsingleorders',authorizeRoles(),getOrdersByUser);
+ordersRoute.get('/getsingleorders',authorizeRoles("user","admin"),getOrdersByUser);
 ordersRoute.get('/getallorders',authorizeRoles(["admin"]),getAllOrders);
 ordersRoute.post('/address/',authorizeRoles(["user","admin"]),address);
 ordersRoute.post('/payment/',authorizeRoles(["user","admin"]),payment);
