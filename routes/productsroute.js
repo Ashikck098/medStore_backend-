@@ -1,20 +1,16 @@
 import  Express  from "express";
 import { addProduct, deleteProduct, getAllProduct, getsingleProduct, searchProduct, updateProduct } from "../controllers/productsController.js";
 import multer from 'multer';
+import { authorizeRoles } from "../authorization/authorize.js";
 
 const productsRoute=Express()
 const upload = multer({ storage: multer.diskStorage({}) }); 
 
-productsRoute.post('/addproducts',upload.array("image"),addProduct);
-// productsRoute.post('/addproductsImage',upload.array("image"),addProductImage);
-productsRoute.post('/updateproducts',updateProduct);
-productsRoute.post('/searchproducts',searchProduct);
-productsRoute.post('/getproductsingle/:id',getsingleProduct);
-productsRoute.get('/getallproducts',getAllProduct);
-productsRoute.delete('/deleteproduct/:id',deleteProduct);
-// productsRoute.get('/getproducts',getProduct);
-// productsRoute.get('/getsingleproduct/:id',getSingleProduct);
-
-
+productsRoute.post('/addproducts',authorizeRoles(["admin"]),upload.array("image"),addProduct);
+productsRoute.post('/updateproducts',authorizeRoles(["admin"]),updateProduct);
+productsRoute.post('/searchproducts',authorizeRoles(["user","admin"]),searchProduct);
+productsRoute.post('/getproductsingle/:id',authorizeRoles(["user","admin"]),getsingleProduct);
+productsRoute.get('/getallproducts',authorizeRoles(["user","admin"]),getAllProduct);
+productsRoute.delete('/deleteproduct/:id',authorizeRoles(["admin"]),deleteProduct);
 
 export default productsRoute 

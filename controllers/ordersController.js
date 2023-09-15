@@ -118,7 +118,7 @@ export async function getAllOrders(req, res, next) {
     const Order = await Orders.find().populate({
       path:'product',
       select:'productName'
-  });
+  }).sort({ createdAt: -1 });
     if(!Order){
       return res.status(404).json({ message: 'orders not found' });
     }

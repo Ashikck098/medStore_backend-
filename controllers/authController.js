@@ -101,7 +101,7 @@ export async function login(req, res) {
       }
   
       // User found, generate a JWT token
-      const token = jwt.sign({ id: user._id }, 'secrettt');
+      const token = jwt.sign({ id: user._id }, 'thesecret');
   
       // Respond with success message, user role, and the token
       return res.status(200).json({

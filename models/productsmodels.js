@@ -26,7 +26,12 @@ productImage: [
         }
     }
 ]
-  });
+  },
+  
+  {
+    timestamps: true
+  }
+  );
   
   const Products = mongoose.model("Products", productsSchema);
   

@@ -10,16 +10,22 @@ const ordersSchema = new mongoose.Schema({
      ref:"Products",
      required: true,
    },
-   
-   address:[{name:String,
-  mobileNo:String,
-  areaAndAdress:String}],
-  purchasedCount:Number,
-  totalPay:Number,
-  paymentMethod:String,
-  paymentId: String,
+   address:[{
+    name:String,
+    mobileNo:String,
+    areaAndAdress:String
+  }],
+    purchasedCount:Number,
+    totalPay:Number,
+    paymentMethod:String,
+    paymentId: String,
 
-  });
+  },
+  
+  {
+    timestamps: true
+  }
+  );
   
   const Orders = mongoose.model("Orders", ordersSchema);
   

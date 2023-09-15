@@ -74,7 +74,7 @@ export async function addCart(req, res, next) {
 
     // Check if a cart already exists for the user
     const cartAvailable = await Cart.findOne({ user: cartData.user });
-    const productId = cartData.cart[0].productId;
+    const productId = cartData.cart[0].product;
     const productAvailable = await Products.findById(productId);
 
     if (cartAvailable) {

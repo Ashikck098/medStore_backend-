@@ -1,16 +1,14 @@
 import  Express  from "express";
 import { addOrders, address, getAllOrders, getOrdersByUser, payment, removeOrder } from "../controllers/ordersController.js";
+import { authorizeRoles } from "../authorization/authorize.js";
 
 const ordersRoute=Express()
 
-ordersRoute.post('/addorder',addOrders);
-// ordersRoute.delete('/cancelorder',deleteProduct);
-ordersRoute.post('/getsingleorders',getOrdersByUser);
-ordersRoute.get('/getsingleproduct/:id',getAllOrders);
-ordersRoute.post('/address/',address);
-ordersRoute.post('/payment/',payment);
-ordersRoute.delete('/removeorder/:id/',removeOrder);
-
-
+ordersRoute.post('/addorder',authorizeRoles(["user","admin"]),addOrders);
+ordersRoute.post('/getsingleorders',authorizeRoles(),getOrdersByUser);
+ordersRoute.get('/getallorders',authorizeRoles(["admin"]),getAllOrders);
+ordersRoute.post('/address/',authorizeRoles(["user","admin"]),address);
+ordersRoute.post('/payment/',authorizeRoles(["user","admin"]),payment);
+ordersRoute.delete('/cancelorder/:id/',authorizeRoles(["user","admin"]),removeOrder);
 
 export default ordersRoute 

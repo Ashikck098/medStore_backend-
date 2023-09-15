@@ -15,7 +15,11 @@ const alluserSchema = new mongoose.Schema({
     required: true,
     default: "user",
   },
-  });
+  },
+  {
+    timestamps: true
+  }
+  );
   
   const Allusers = mongoose.model("Allusers", alluserSchema);
   

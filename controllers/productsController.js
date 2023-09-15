@@ -299,8 +299,6 @@ export async function getsingleProduct(req, res, next) {
     if (!mongoose.Types.ObjectId.isValid(productId)) {
       return res.status(400).json({ message: 'Invalid product ID' });
     }
-
-    // Find the product by ID
     const findProduct = await Products.findById(productId);
 
     if (!findProduct) {
@@ -318,17 +316,13 @@ export async function getsingleProduct(req, res, next) {
 
 export async function getAllProduct(req, res, next) {
   try {
-    
-   
-
-   
-    const getallProducts = await Products.find();
+    const getallProducts = await Products.find().sort({ createdAt: -1 });
 
     if (!getallProducts) {
       return res.status(404).json({ message: 'Product not found' });
     }
     const total = getallProducts.length
-    // Respond with the found product
+  
     res.status(200).json({ allproducts: getallProducts, total: total });
   } catch (error) {
     // Handle unexpected errors and pass them to the error handling middleware (next)
