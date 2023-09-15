@@ -8,9 +8,9 @@ const upload = multer({ storage: multer.diskStorage({}) });
 
 productsRoute.post('/addproducts',authorizeRoles(["admin"]),upload.array("image"),addProduct);
 productsRoute.post('/updateproducts',authorizeRoles(["admin"]),updateProduct);
-productsRoute.post('/searchproducts',authorizeRoles(["user","admin"]),searchProduct);
-productsRoute.post('/getproductsingle/:id',authorizeRoles(["user","admin"]),getsingleProduct);
-productsRoute.get('/getallproducts',authorizeRoles(["user","admin"]),getAllProduct);
+productsRoute.post('/searchproducts',searchProduct);
+productsRoute.post('/getproductsingle/:id',getsingleProduct);
+productsRoute.get('/getallproducts',getAllProduct);
 productsRoute.delete('/deleteproduct/:id',authorizeRoles(["admin"]),deleteProduct);
 
 export default productsRoute 
