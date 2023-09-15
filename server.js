@@ -5,9 +5,11 @@ import authRouter from "./routes/auth.js"
 import productsRoute from "./routes/productsroute.js";
 import cartRoute from "./routes/cartroute.js";
 import ordersRoute from "./routes/ordersroute.js";
+import cors from "cors"
 
 const app=express()
 const port =4000;
+app.use(cors({ origin: true, credentials: true }));
 
 app.use(express.json())
 
