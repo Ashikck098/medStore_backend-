@@ -55,7 +55,7 @@ export async function getOrdersByUser(req, res, next) {
 
     // if (!userId) throw error(400, "Not a valid userid");
 
-    const Order = await Orders.find({ user: userId });
+    const Order = await Orders.find({ user: userId }).populate({path:'product',select:'productName productImage price'});
     if(!Order){
       return res.status(404).json({ message: 'orders not found' });
     }
