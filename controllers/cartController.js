@@ -79,7 +79,7 @@ export async function getSingleCart(req, res, next) {
       .populate({
         path: 'cart.product',
         model: 'Products',
-        select: 'name productImage price', // Specify the fields you want to populate
+        select: 'productName productImage price', // Specify the fields you want to populate
       });
     
     if (!findCart) {
@@ -89,9 +89,9 @@ export async function getSingleCart(req, res, next) {
     // Assuming you want to return an array of populated products in the cart
     const productDetails = findCart.cart.map(item => ({
       product: {
-        name: item.product.name,
+        name: item.product.productName,
         productImage: item.product.productImage,
-        price:item.price.product.price
+        price:item.product.price
       },
       selectedCount: item.selectedCount,
     }));
