@@ -51,15 +51,52 @@ export async function addCart(req, res, next) {
 }
 
 
+// export async function getSingleCart(req, res, next) {
+//   try {
+//     const userId = req.body.user;
+//     const findCart = await Cart.findOne({ user: userId }).populate('cart.product');;
+
+//     findCart.cart.map(item => ({
+//       product: item.product,
+//       selectedCount: item.selectedCount,
+//     }));
+
+//     if (!findCart) {
+//       return res.status(404).json({ message: ' no cart found' });
+//     }
+//     const cartcount = findCart ? findCart.cart.length : 0; 
+//     res.status(200).json({ addedCart:findCart, totalcount:cartcount }); 
+//   } catch (error) {
+//     next(error); 
+//   }
+// }
+
+
 export async function getSingleCart(req, res, next) {
   try {
     const userId = req.body.user;
-    const findCart = await Cart.findOne({ user: userId });
+    const findCart = await Cart.findOne({ user: userId })
+      .populate({
+        path: 'cart.product',
+        model: 'Products',
+        select: 'name productImage price', // Specify the fields you want to populate
+      });
+    
     if (!findCart) {
-      return res.status(404).json({ message: ' no cart found' });
+      return res.status(404).json({ message: 'No cart found' });
     }
-    const cartcount = findCart ? findCart.cart.length : 0; 
-    res.status(200).json({ addedCart:findCart, totalcount:cartcount }); 
+
+    // Assuming you want to return an array of populated products in the cart
+    const productDetails = findCart.cart.map(item => ({
+      product: {
+        name: item.product.name,
+        productImage: item.product.productImage,
+        price:item.price.product.price
+      },
+      selectedCount: item.selectedCount,
+    }));
+
+    res.status(200).json({ addedCart: productDetails, totalcount: productDetails.length });
   } catch (error) {
     next(error); 
   }
