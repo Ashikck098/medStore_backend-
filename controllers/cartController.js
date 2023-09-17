@@ -87,16 +87,16 @@ export async function getSingleCart(req, res, next) {
     }
 
     // Assuming you want to return an array of populated products in the cart
-    const productDetails = findCart.cart.map(item => ({
-      product: {
-        name: item.product.productName,
-        productImage: item.product.productImage,
-        price:item.product.price
-      },
-      selectedCount: item.selectedCount,
-    }));
+    // const productDetails = findCart.cart.map(item => ({
+    //   product: {
+    //     name: item.product.productName,
+    //     productImage: item.product.productImage,
+    //     price:item.product.price
+    //   },
+    //   selectedCount: item.selectedCount,
+    // }));
 
-    res.status(200).json({ addedCart: productDetails, totalcount: productDetails.length });
+    res.status(200).json({ addedCart: findCart, totalcount: findCart.length });
   } catch (error) {
     next(error); 
   }
