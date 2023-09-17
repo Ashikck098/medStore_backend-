@@ -96,7 +96,7 @@ export async function getSingleCart(req, res, next) {
     //   selectedCount: item.selectedCount,
     // }));
 
-    res.status(200).json({ addedCart: findCart, totalcount: findCart.length });
+    res.status(200).json({ addedCart: findCart, totalcount: findCart.cart.length });
   } catch (error) {
     next(error); 
   }
