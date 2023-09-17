@@ -102,4 +102,58 @@ export async function getSingleCart(req, res, next) {
   }
 }
 
+
+
+
+
+
+
+export async function removeCart(req, res, next) {
+
+  
+  try {
+ 
+    
+const userId = req.body.user; // Replace with the user's ID
+const itemIdToRemove = req.params.id; 
+
+
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'there is no user Id' });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(itemIdToRemove)) {
+      return res.status(400).json({ message: 'there is no cart id' });
+    }
+
+    
+
+   const deletedCart =  await Cart.updateOne(
+    { user: userId },
+    {
+      $pull: {
+        cart: {
+          _id: itemIdToRemove
+        }
+      }
+    }
+  );
+  
+    if (!deletedCart) {
+      return res.status(404).json({ message: 'cart not found' });
+    }
+
+    res.status(200).json({ message: 'Cart deleted successfully' });
+
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+
+
+
+
  
