@@ -1,5 +1,5 @@
 import  Express  from "express";
-import { addProduct, deleteProduct, getAllProduct, getsingleProduct, searchProduct, updateProduct } from "../controllers/productsController.js";
+import { addProduct, analyseImage, deleteProduct, getAllProduct, getsingleProduct, searchProduct, updateProduct } from "../controllers/productsController.js";
 import multer from 'multer';
 import { authorizeRoles } from "../authorization/authorize.js";
 
@@ -12,5 +12,7 @@ productsRoute.post('/searchproducts',searchProduct);
 productsRoute.post('/getproductsingle/:id',getsingleProduct);
 productsRoute.get('/getallproducts',getAllProduct);
 productsRoute.delete('/deleteproduct/:id',authorizeRoles(["admin"]),deleteProduct);
+
+productsRoute.post('/identifyimage',upload.single('image'), analyseImage)
 
 export default productsRoute 

@@ -3,6 +3,10 @@ import { v2 as cloudinary } from 'cloudinary';
 import mongoose from 'mongoose'
 
 
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import fs from 'fs';
+import path from 'path';
+
 cloudinary.config({
   cloud_name: 'dh5pflqzs',
   api_key: '549382545581927',
@@ -158,7 +162,51 @@ export async function getAllProduct(req, res, next) {
   }
 }
 
+export async function analyseImage (req , res , next) {
+  try {
+    let image = req.file
+  
+    console.log(image);
 
+    // Access your API key as an environment variable (see "Set up your API key" above)
+   const genAI = new GoogleGenerativeAI('AIzaSyDqhRoFOIIaCXVvIGbO1KRFjq7-qfhPprI');
+    
+    // Converts local file information to a GoogleGenerativeAI.Part object.
+    function fileToGenerativePart(file) {
+      return {
+          inlineData: {
+              data: Buffer.from(fs.readFileSync(file.path)).toString("base64"),
+              mimeType: file.mimetype
+          }
+      };
+  }
+  
+    
+    
+      // For text-and-image input (multimodal), use the gemini-pro-vision model
+      const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+    
+      const prompt = "analyze the image to determine if it contains a hospital or doctor's logo or name. If such elements are present, then extract the names of medicines from the image and display them in a success message. If no hospital or doctor's logo or name is detected, display an error message indicating that the image is not valid.";
+    
+      const imageParts = [
+        fileToGenerativePart(image),
+      ];
+    
+      const result = await model.generateContent([prompt, ...imageParts]);
+      const response =  result.response;
+      const text = response.text();
+      console.log(response);
+    
+
+      res.status(200).json({ answer : text });
+
+
+
+
+  } catch (error) {
+    next(error);
+  }
+}
 
 
  
